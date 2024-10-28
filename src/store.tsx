@@ -21,6 +21,8 @@ interface Store {
   // array
   members: Member[]
   union: {
+    name: string
+    description: string
     // nested property
     president: number
     // nested array
@@ -39,6 +41,8 @@ interface Store {
     changeAge: (id: number, age: number) => void
     addMemberToUnion: (id: number) => void
     assignJob: (jobId: number, memberId: number) => void
+    changeUnionName: (name: string) => void
+    changeUnionDescription: (description: string) => void
   }
 }
 
@@ -55,6 +59,8 @@ export const useSuperDuperStore = create<Store>()(
         { id: 4, name: 'David', age: 56 },
       ],
       union: {
+        name: 'Super Union',
+        description: 'This is the best union ever',
         president: 1,
         members: [1, 2, 3],
         jobs: [
@@ -73,6 +79,8 @@ export const useSuperDuperStore = create<Store>()(
         changeAge: (id, age) => set(state => void (state.members.find(m => m.id === id)!.age = age)),
         addMemberToUnion: id => set(state => void state.union.members.push(id)),
         assignJob: (jobId, memberId) => set(state => void state.union.jobs.find(j => j.id === jobId)!.assignments.push(memberId)),
+        changeUnionName: name => set(state => void (state.union.name = name)),
+        changeUnionDescription: description => set(state => void (state.union.description = description)),
       },
     })
   )))
